@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>cliniCure.</h1>
+    </header>
+    <main>
+            
+            <form id="loginForm">
+                <h2>Login</h2>
+                <table>
+                    <tr>
+                        <td><label for="email">Userid</label></td><td>:</td>
+                        <td><input required type="email" name="email" id="email"></td>
+                    </tr>
+                   <tr>
+                       <td><label for="pw">Password</label></td><td>:</td>
+                       <td><input required type="password" name="pw" id="pw"></td>
+                   </tr>
+                </table><br>
+                <div class="btnDiv">
+                    <button type="submit" class="btnLogin">Login</button><br><br><a id="goToSignup">Not an user? Signup</a>
+                </div>
+            </form>
+           
+            <form id='signupForm'>
+                <h2>Signup</h2>
+                <table>
+                  <tr>
+                    <td><label for='email0'>Email</label></td><td>:</td>
+                    <td><input required id='email0' name='email0' type='email'></td>
+                  </tr>
+                  <tr>
+                    <td><label for='pw0'>Create password</label></td><td>:</td>
+                    <td><input required id='pw0' placeholder='must have six digits' name='pw0' type='password'></td>
+                  </tr>
+                  <tr>
+                    <td><label for='pw1'>Confirm password</label></td><td>:</td>
+                    <td><input required id='pw1' name='pw1' type='password'></td>
+                  </tr>
+                  <tr>
+                    <td><label for="level">Degignation</label></td><td>:</td>
+                    <td><select name="level" id="level">
+                           <option value="none">Select</option>
+                           <option value="doctor">Doctor</option>
+                           <option value="recep">Receptionist</option>
+                         </select>
+                    </td>
+                  </tr>
+                </table>
+                <br>
+                <div class="btnDiv">
+                    <button type="submit" class="btnSignup">Signup</button>
+                    <br><br><a id="goToLogin">Go to Login</a>
+                </div>
+            </form>
+            <div id="alert"></div>
+    </main>
+
+    <section class="recepTab">
+      <h2>Receptionist</h2>
+      <div class="unDiv">User: <span id="rName"></span>&nbsp;<button id="rLogout">Logout</button></div>
+      <form id="dataForm">
+        <h3>Fill patient's details to generate token</h3>
+        <table>
+          <tr>
+            <td><label for="pName">Patient's name</label></td><td>:</td>
+            <td><input required name="pName" id="pName" type="text"></td>
+          </tr>
+          <tr>
+            <td><label for="pAge">Age</label></td><td>:</td>
+            <td><input required pattern="[0-9]{1,2}" placeholder='between 0 to 99' name="pAge" id="pAge" type="text"></td>
+          </tr>
+          <tr><td><label for="gender">Gender</label></td><td>:</td>
+            <td><select name="gender" id="gender">
+                  <option value="none">Select</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+            </td>
+          </tr>
+        </table><br>
+        <div class="btnDiv"><button type="submit" id="btnGen">Generate token</button></div>
+        <div id="alert2"></div>
+      </form><br>
+      <p>All token list</p>
+      <ol reversed id="tokens"></ol>
+    </section>
+
+    <section class="doctorTab">
+      <h2>Doctor</h2>
+      <div class="unDiv">User: <span id="dName"></span>&nbsp;<button id="dLogout">Logout</button></div>
+      <br><div id="preview"></div><br><br>
+      <p>All token list</p>
+      <ol reversed id="dTokens"></ol>
+    </section>
+
+
+
+    <script type="module" src="main.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    
+</body>
+</html>
