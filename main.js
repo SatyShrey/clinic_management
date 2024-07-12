@@ -131,8 +131,7 @@ dataForm.addEventListener('submit',(e)=>{
             Checkup:'Pending',
             Id:id
         }).then((datas)=>{alert2.innerHTML=`<i style='background-color:green;'>Token generated successfully</i>`;
-            
-            setTimeout(()=>{alert2.innerHTML=''},900);dashboard(recepTab,ol2,rName);});
+            setTimeout(()=>{alert2.innerHTML=''},900);dashboard(recepTab,ol2,rName);dataForm.reset();});
     }
 })
 
