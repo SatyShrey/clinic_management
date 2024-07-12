@@ -210,4 +210,6 @@ document.getElementById('rLogout').addEventListener('click',()=>{
     main.style.display='block';
 })
 
+//Thank you..............|||
+
 
