@@ -13,3 +13,15 @@ This is a web application project made by using HTML, CSS and JavaScript, that i
 
 Overall, the script creates a user-friendly interface for managing patient appointments, handling user authentication, displaying patient information, and allowing staff members to update appointment statuses.
 
+ It includes forms for user login and signup, sections for receptionist and doctor information, and scripts to handle interactions. The structure consists of header, main content with forms for login and signup, sections for receptionist and doctor details, and a script tag linking to a JavaScript file for functionality. The design is clean and organized, enhancing user experience by segregating different functionalities into distinct sections.
+
+ functions
+ ==========
+ 1. It has a login screen for both doctors and receptionists.
+ 2. User can switch to signup page by clicking the link named "Not an user? Signup".
+ 3. At the time of user creation the database record a object that contain if the new user is a doctor or receptionalist, so for both doctor and receptionalist there are one login and one signup page.
+ 4. After login if the user is a doctor he/she can view the appointment list and patient's data and can mark as completed for particular appointment.
+ 5.  After login if the user is a doctor he/she can view name and appointment status list of the patients and can add new appointments list to the list.
+ 6.  After the doctor mark an appointment as completed it will be shown completed to both doctor and receptionalist.
+
+*******************************************************************************************************
