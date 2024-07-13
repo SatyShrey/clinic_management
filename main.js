@@ -41,6 +41,7 @@ document.getElementById('goToSignup').addEventListener('click',(e)=>{
     e.preventDefault();
     document.getElementById('signupForm').style.display='block';
     document.getElementById('loginForm').style.display='none';
+    login.reset();
 })
 
 //go to login page
@@ -48,11 +49,13 @@ document.getElementById('goToLogin').addEventListener('click',(e)=>{
     e.preventDefault();
     document.getElementById('signupForm').style.display='none';
     document.getElementById('loginForm').style.display='block';
+    signup.reset();
 })
 
 //function for signup
 signup.addEventListener('submit',(e)=>{
     e.preventDefault();
+    alert.innerHTML=`<marquee direction='right' style='background-color:skyblue'><i>Loading..</i></marquee>`;
     var email0=document.getElementById('email0').value;
     var password=document.getElementById('pw0').value;
     var password1=document.getElementById('pw1').value;
@@ -88,7 +91,7 @@ login.addEventListener('submit',(e)=>{
     alert.innerHTML=`<marquee direction='right' style='background-color:skyblue'><i>Loading..</i></marquee>`;
     email=document.getElementById('email').value;
     var password=document.getElementById('pw').value;
-    signInWithEmailAndPassword(auth,email,password).then((userCredentials)=>{
+    signInWithEmailAndPassword(auth,email,password).then((userCredentials,err)=>{
         login.reset();
         alert.innerHTML='';
         var uid=userCredentials.user.uid;
@@ -96,7 +99,7 @@ login.addEventListener('submit',(e)=>{
             var level=Object.values(userId.val())[0];
             if(level==='doctor'){dashboard(doctorTab,ol,dName);}
             else if(level==='recep'){dashboard(recepTab,ol2,rName);}
-        })
+        }) 
         
     }).catch((error)=>{
         if(error=="FirebaseError: Firebase: Error (auth/network-request-failed)."){
@@ -181,7 +184,7 @@ document.addEventListener('click',(e)=>{
       <tr><td>Id</td><td>:</td><td id='uId'>${pValues[4]}</td></tr>
       <tr><td>Checkup</td><td>:</td><td id='status'>${pValues[1]}</td></tr>
     </table><br><div class='btnDiv'>
-    <button id='cancel'>Cancel</button>&nbsp;
+    <button id='cancel'>Ok</button>&nbsp;
     <button id='completed'>Mark Completed</button><div>`;
         })}
 

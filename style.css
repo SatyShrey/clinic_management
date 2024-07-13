@@ -239,14 +239,14 @@ a:active{
                 border-radius: 4px;
                 padding: 5px;
                 border: none;
-                color: white;
                 font-weight: bold;
             }
             #cancel{
-                background-color: rgb(251, 51, 51);
+                background-color: white;
             }
             #completed{
                 background-color: rgb(56, 56, 243);
+                color: white;
             }
         }
     }
