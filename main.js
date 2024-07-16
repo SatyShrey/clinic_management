@@ -140,7 +140,7 @@ dataForm.addEventListener('submit',(e)=>{
 
 
 //function to view all token list
-function dashboard(a,b,c,d){
+function dashboard(a,b,c){
 a.style.display='block';
 main.style.display='none';
 c.innerHTML=email;
@@ -150,18 +150,21 @@ b.innerHTML='';
         var idsArray=Object.values(idsValue);
         for(var num=idsArray.length-1;num>=0;num--){
         var id=idsArray[num];
-        var Chekup=Object.values(id)[1];
-        var Id=Object.values(id)[4];
-        var Name=Object.values(id)[5];
+        var Chekup=id.Checkup;
+        var Id=id.Id;
+        var Name=id.Name;
         var color='red';
-        if(Chekup==='Completed &#10003;'){color='green'}
+        if(Chekup==='Checkup done<br>Payment done &#10003;'){color='green'}else if(Chekup==="Checkup done"){
+            color='orange';
+        }
         var li=document.createElement('li');
         li.innerHTML=`<table>
         <tr><td>Name</td><td>:</td><td> ${Name}</td></tr>
         <tr><td>Status</td><td>:</td>
         <td style='color:${color};border:2px solid ${color}'>${Chekup}</td></tr>
         </table>
-        <button style='background-color:${color}' class='btnView' id='${Id}'>View</button><br><br>`;
+        <button style='background-color:${color}' class='btnView' id='${Id}'>Check</button>
+        <button style='background-color:${color}' class='btnView2' id='${"rec"+Id}'>View</button><br><br>`;
         b.appendChild(li);
         }
     })
@@ -174,30 +177,66 @@ document.addEventListener('click',(e)=>{
     if(e.target.className==='btnView'){
         get(ref(db,'patients/'+pId)).then((info)=>{
             var infoVal=info.val();
-            var pValues=Object.values(infoVal);
-            preview.innerHTML=`<table>
-      <tr><td>Name</td><td>:</td><td>${pValues[5]}</td></tr>
-      <tr><td>Date</td><td>:</td><td>${pValues[2]}</td></tr>
-      <tr><td>Time</td><td>:</td><td>${pValues[6]}</td></tr>
-      <tr><td>Age</td><td>:</td><td>${pValues[0]}</td></tr>
-      <tr><td>Gender</td><td>:</td><td>${pValues[3]}</td></tr>
-      <tr><td>Id</td><td>:</td><td id='uId'>${pValues[4]}</td></tr>
-      <tr><td>Checkup</td><td>:</td><td id='status'>${pValues[1]}</td></tr>
-    </table><br><div class='btnDiv'>
-    <button id='cancel'>Ok</button>&nbsp;
-    <button id='completed'>Mark Completed</button><div>`;
+            preview.innerHTML=`<div class=preview>
+            <u>Appointment Details</u>
+    <table>
+      <tr><td>Patient's name</td><td>:</td><td>${infoVal.Name}</td></tr>
+      <tr><td>Date</td><td>:</td><td>${infoVal.Date}</td></tr>
+      <tr><td>Time</td><td>:</td><td>${infoVal.Time}</td></tr>
+      <tr><td>Age</td><td>:</td><td>${infoVal.Age}</td></tr>
+      <tr><td>Gender</td><td>:</td><td>${infoVal.Gender}</td></tr>
+      <tr><td>Id</td><td>:</td><td id='uId'>${infoVal.Id}</td></tr>
+      <tr><td>Total charge</td><td>:</td><td>Rs.<input id='charge' placeholder='Enter amount' type='number'></td></tr>
+      <tr><td>Checkup</td><td>:</td><td id='status'>${infoVal.Checkup}</td></tr>
+      <tr><td><u>Prescription</u></td><td></td><td></td></tr>
+    </table>
+    <div class='center'><textarea cols="37" rows="10" placeholder='Write prescription' id="prescription"></textarea></div><br>
+    <div class='alert' id='alert1'></div>
+    <div class='center'><button id='ok'>Ok</button>
+    <button id='completed'>Checkup done</button></div>
+    </div>`;
+    var prescription=document.getElementById("prescription");
+    var charge=document.getElementById("charge");
+    var completed=document.getElementById('completed');
+    if(infoVal.Checkup==='Pending'){
+        prescription.value='';
+        charge.value='';
+    }else{
+        prescription.value=infoVal.Prescription;
+        prescription.disabled='true';
+        charge.value=infoVal.Charge;
+        charge.disabled='true';
+        completed.style.display='none';
+    }
+    
         })}
 
         //cancel button
-    else if(pId==='cancel'){
+    else if(pId==='ok'){
         preview.innerHTML='';}
 
     //completed button
     else if(pId==='completed'){
-        var uId=document.getElementById('uId').innerHTML;
-        update(ref(db,'patients/'+uId),{Checkup:'Completed &#10003;'}).then(()=>{
+       var ch =document.getElementById('charge').value;
+       var preq=document.getElementById('prescription').value;
+       var alert=document.getElementById('alert1');
+        if(ch===''){
+            alert.innerHTML="<span style='color:red'>Error:Charge field is empty..</span>";
+            setTimeout(()=>{alert.innerHTML=''},900);
+        }else if(preq===''){alert.innerHTML="<span style='color:red'>Error:Prescription field is empty..</span>";
+            setTimeout(()=>{alert.innerHTML=''},900);
+        }else{
+            var uId=document.getElementById('uId').innerHTML;
+        var preq=document.getElementById('prescription').value;
+        var ch=document.getElementById('charge').value;
+        update(ref(db,'patients/'+uId),{
+            Checkup:'Checkup done',
+            Prescription:preq,
+            Charge:ch
+        }).then(()=>{
             dashboard(doctorTab,ol,dName);preview.innerHTML='';
         })
+        }
     }
 })
 
@@ -211,6 +250,55 @@ document.getElementById('dLogout').addEventListener('click',()=>{
 document.getElementById('rLogout').addEventListener('click',()=>{
     recepTab.style.display='none';
     main.style.display='block';
+})
+
+//view data for receptionalist
+document.addEventListener('click',(e)=>{
+    var updateForm=document.getElementById('updateForm');
+    if(e.target.className==='btnView2'){
+        var id=e.target.id.replace('rec','');
+        get(ref(db,'patients/'+id)).then((data)=>{
+            var dataval=data.val();
+            if(dataval.Checkup==='Pending'){
+                dataval.Charge='--';
+                dataval.Prescription='';
+            }
+            updateForm.innerHTML=`<div class="center">
+  <table>
+    <tr><td>Patient's name</td><td>:</td><td>${dataval.Name}</td></tr>
+    <tr><td>Date</td><td>:</td><td>${dataval.Date}</td></tr>
+    <tr><td>Time</td><td>:</td><td>${dataval.Time}</td></tr>
+    <tr><td>Age</td><td>:</td><td>${dataval.Age}</td></tr>
+    <tr><td>Gender</td><td>:</td><td >${dataval.Gender}</td></tr>
+    <tr><td>Id</td><td>:</td><td id='upId' >${dataval.Id}</td></tr>
+    <tr><td>Checkup</td><td>:</td><td >${dataval.Checkup}</td></tr>
+    <tr><td>Total charge</td><td>:</td><td >Rs.${dataval.Charge}</td></tr>
+  </table>
+  <u>Precription</u>
+  <p>${dataval.Prescription}</p>
+  <div class='btnDiv'>
+    <button id="ok2">Ok</button><button id="Payment">Payment done</button>
+  </div>
+</div>`;
+if(dataval.Checkup != "Checkup done"){
+    document.getElementById('Payment').style.display='none';
+}
+
+        })
+    }
+
+    else if(e.target.id==='ok2'){
+        updateForm.innerHTML='';
+
+//mark as payment done
+    }else if(e.target.id==='Payment'){
+        var id=document.getElementById('upId').innerHTML;
+        update(ref(db,'patients/'+id),{
+            Checkup:'Checkup done<br>Payment done &#10003;'
+        }).then((data)=>{
+            dashboard(recepTab,ol2,rName);updateForm.innerHTML='';
+        })
+    }
 })
 
 //Thank you..............|||

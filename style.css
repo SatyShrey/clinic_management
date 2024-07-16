@@ -9,6 +9,7 @@ header{
         color: skyblue;
         font-weight: bold;
         text-shadow:black 0px 0px 5px;
+        margin-left: 5px;
     }
 }
 
@@ -94,6 +95,49 @@ main{
     padding-right: 7px;
     h2,h3,.btnDiv{
         text-align: center;
+    }
+    .btnView2{
+        width: 90%;
+    }
+    #updateForm{
+        width: fit-content;
+        margin: auto;
+        font-weight: bold;
+        color: white;
+        .center{
+            background-color:rgb(96, 96, 146);
+            border-radius: 4px;
+            padding: 4px;
+            width: fit-content;
+            margin: auto;
+            p{
+                
+                font-family: cursive;
+                font-weight:normal ;
+                min-height: 70px;
+                width: 95%;
+                background-color: white;
+                padding: 4px;
+                color: blue;
+                border: 2px solid black;
+                border-radius: 3px;
+            }
+            div{
+                width: 100%;
+                margin: auto;
+                button{
+                    width:48%;
+                    margin: 1%;
+                    background-color: white;
+                    color: black;
+                    font-weight: bolder;
+                }
+                button:active{
+                    color:white;
+                    box-shadow: black 0px 0px 4px inset;
+                }
+            }
+        }
     }
     h2{
         color: whitesmoke;
@@ -216,6 +260,15 @@ a:active{
     padding-bottom: 7px;
     padding-left: 7px;
     padding-right: 7px;
+
+    button{
+        padding: 6px;
+        border: none;
+        border-radius: 3px;
+        font-weight: bold;
+        border: none;
+        border-radius: 4px;
+    }
     p{
         font-weight: bold;
         width: fit-content;
@@ -223,31 +276,77 @@ a:active{
     }
     #preview{
         height: fit-content;
-        min-height: 90px;
-        table{
-            color: white;
-            background-color:rgb(103, 77, 107);
-            font-size: large;
-            padding: 10px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .btnDiv{
+        width: fit-content;
+        min-height: 100px;
+        margin: auto;
+        font-weight: bold;
+        color: white;
+        position: relative;
+        .alert{
+            position: absolute;
+            bottom: 40%;
+            font-size: small;
+            span{
+            padding: 2px;
             width: fit-content;
             margin: auto;
-            button{
-                border-radius: 4px;
-                padding: 5px;
-                border: none;
-                font-weight: bold;
+            background-color:white;
             }
-            #cancel{
-                background-color: white;
+        }
+        textarea{
+            color: blue;
+            font-family: cursive;
+            resize: none;
+            background-color: white;
+            outline: none;
+            border-radius: 3px;
+        }
+        input{
+            color: green;
+            font-weight: bold;
+            height: 25px;
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            background-color:white;
+        }
+        input:hover,textarea:hover,button:hover{
+            box-shadow:white 0px 0px 7px;
+        }
+        input::-webkit-inner-spin-button{
+            -webkit-appearance: none;
+        }
+        .preview{
+            background-color:rgb(103, 77, 107);
+            border-radius: 4px;
+            padding: 10px;
+            u{
+                font-size: large;
             }
-            #completed{
-                background-color: rgb(56, 56, 243);
-                color: white;
+            input{width: 50%;}
+            .center{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                button{
+                    width: 40%;
+                    margin: 3px;
+                }
             }
+        }
+        div{
+            width: fit-content;
+            margin: auto;
+        }
+        button{
+            width: fit-content;
+            font-weight: bold;
+            padding: 5px;
+            border-radius: 4px;
+            border: none;
+            box-shadow:white 0px 0px 1px;
+            background-color: white;
         }
     }
     h2{
@@ -272,6 +371,10 @@ a:active{
                 color: white;
                 border: none;
             }
+            .btnView2{
+                display: none;
+            }
+            
         }
     }
     .unDiv{
@@ -334,7 +437,18 @@ a:active{
     
 }
 @media only screen and (max-width:600px){
+    body{
+        width: 100%;
+        margin:0px;
+    }
     .recepTab ol,.doctorTab ol{
         grid-template-columns: 12fr;
+    }
+    
+    .recepTab,.doctorTab{
+        padding: 3px;
+        .unDiv{
+            font-size: medium;
+        }
     }
 }
