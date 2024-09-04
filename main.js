@@ -8,13 +8,13 @@ import { getDatabase, set, get, ref,update } from "https://www.gstatic.com/fireb
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDQxve9EL2hSOdmZh-A7dXmazwi-MbZhVU",
-  authDomain: "goldywebzone.firebaseapp.com",
-  databaseURL: "https://goldywebzone-default-rtdb.firebaseio.com",
-  projectId: "goldywebzone",
-  storageBucket: "goldywebzone.appspot.com",
-  messagingSenderId: "462971610645",
-  appId: "1:462971610645:web:68f7b407853c203901101c"
+    apiKey: "AIzaSyCOlvsZg9qAe99jE-p3n3yaGJ31_m5jUpE",
+    authDomain: "quiz-1ecfc.firebaseapp.com",
+    projectId: "quiz-1ecfc",
+    storageBucket: "quiz-1ecfc.appspot.com",
+    messagingSenderId: "647426568440",
+    appId: "1:647426568440:web:a8776f43458d4286fc0b0d",
+    measurementId: "G-JQ2HW6Z5L7"
 };
 
 // Initialize Firebase
@@ -302,5 +302,4 @@ if(dataval.Checkup != "Checkup done"){
 })
 
 //Thank you..............|||
-
 
